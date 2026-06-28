@@ -141,7 +141,7 @@ function populateHero() {
             </div>
             <div class="summary-item">
                 <div class="summary-value">${m.n_brands}</div>
-                <div class="summary-label">Marques <span class="tip">i<span class="tip-text"><strong>Marques analysées</strong>Renault, Dacia et Nissan — les trois marques du groupe commercialisées sur le marché allemand.</span></span></div>
+                <div class="summary-label">Marques <span class="tip">i<span class="tip-text"><strong>Marques analysées</strong>Marques du groupe commercialisées sur le marché cible.</span></span></div>
             </div>
             <div class="summary-item">
                 <div class="summary-value">${m.n_models_vehicle}</div>
@@ -451,19 +451,19 @@ const TOUR_STEPS = [
         targetId: 'hero',
         openCollapseId: null,
         title: 'Accueil — le résultat en 1 phrase',
-        text: 'Modèle ML <strong>{{CHOSEN_MODEL}}</strong> prédisant la valeur résiduelle de <strong>1 951 véhicules</strong> Mobilize avec <strong>~7&nbsp;% de MAPE</strong> (EUR) sur un <strong>split temporel post-COVID</strong> — et un MAPE <em>log_ratio</em> ~11&nbsp;% audit-proof. Sélection par <strong>critère de stabilité</strong> (std du MAPE intra-CV), pas par la moyenne.',
+        text: 'Modèle ML <strong>{{CHOSEN_MODEL}}</strong> prédisant la valeur résiduelle de <strong>véhicules du portefeuille</strong> avec <strong>~7&nbsp;% de MAPE</strong> (EUR) sur un <strong>split temporel post-COVID</strong> — et un MAPE <em>log_ratio</em> ~11&nbsp;% audit-proof. Sélection par <strong>critère de stabilité</strong> (std du MAPE intra-CV), pas par la moyenne.',
     },
     {
         targetId: 'context',
         openCollapseId: null,
         title: '01 · Contexte métier',
-        text: 'La VR (valeur résiduelle) pèse <strong>40-60&nbsp;%</strong> du prix catalogue d\'un véhicule en leasing. Une erreur de quelques points se traduit en <strong>millions d\'euros</strong> à l\'échelle du portefeuille Mobilize. Enjeu : provisionner au plus juste, ni trop, ni trop peu.',
+        text: 'La VR (valeur résiduelle) pèse <strong>40-60&nbsp;%</strong> du prix catalogue d\'un véhicule en leasing. Une erreur de quelques points se traduit en <strong>millions d\'euros</strong> à l\'échelle du portefeuille. Enjeu : provisionner au plus juste, ni trop, ni trop peu.',
     },
     {
         targetId: 'eda',
         openCollapseId: null,
         title: '02 · Analyse exploratoire',
-        text: 'Dataset used-car allemand : <strong>~644 000 transactions</strong> réelles (Renault / Dacia / Nissan, 2018-2025). Distributions, catégorielles, matrice de corrélation. La <strong>décote est convexe</strong> avec l\'âge — conforme à la littérature automobile et aux slides Nexialog.',
+        text: 'Dataset used-car allemand : <strong>transactions</strong> réelles du marché de l'occasion. Distributions, catégorielles, matrice de corrélation. La <strong>décote est convexe</strong> avec l\'âge — conforme à la littérature automobile et aux slides Nexialog.',
     },
     {
         targetId: 'hicp',
@@ -498,8 +498,8 @@ const TOUR_STEPS = [
     {
         targetId: 'portfolio',
         openCollapseId: null,
-        title: '08 · Portfolio Mobilize',
-        text: 'Application du modèle retenu aux <strong>1 951 véhicules</strong> du portefeuille de leasing Mobilize. Distribution des prix prédits, décote moyenne, répartition par marque, carburant, familles de dépréciation. Cohérence vérifiée avec la courbe de décote théorique.',
+        title: '08 · Portfolio',
+        text: 'Application du modèle retenu aux <strong>véhicules</strong> du portefeuille de leasing. Distribution des prix prédits, décote moyenne, répartition par marque, carburant, familles de dépréciation. Cohérence vérifiée avec la courbe de décote théorique.',
     },
     {
         targetId: 'stress',
@@ -511,7 +511,7 @@ const TOUR_STEPS = [
         targetId: 'validation',
         openCollapseId: null,
         title: '10 · Validation externe — AutoScout24',
-        text: '10 modèles confrontés à <strong>AutoScout24</strong> par scraping temps réel. Écart médian <strong>-10.66&nbsp;%</strong> — pas une erreur, mais la signature structurelle <strong>B2B (reprise lessor) vs B2C (retail)</strong>. Modèle conservateur = exactement ce qu\'il faut pour Mobilize : on ne surestime pas les reprises.',
+        text: '10 modèles confrontés à <strong>AutoScout24</strong> par scraping temps réel. Écart médian <strong>X&nbsp;%</strong> — pas une erreur, mais la signature structurelle <strong>B2B (reprise lessor) vs B2C (retail)</strong>. Modèle conservateur = exactement ce qu\'il faut pour [Client] : on ne surestime pas les reprises.',
     },
     {
         targetId: 'risk',
@@ -685,12 +685,12 @@ const RAG_CANNED = {
             { type: 'doc', label: 'Ghibellini et al. (2024)' },
         ],
         confidence: 'high',
-        confidence_basis: "Validé empiriquement sur 644 k transactions, test hold-out 20 % stratifié sur le décile de prix.",
+        confidence_basis: "Validé empiriquement sur Transactions, test hold-out 20 % stratifié sur le décile de prix.",
     },
     'as24-gap': {
-        question: "Comment interpréter l'écart -10.66 % vs AutoScout24 ?",
-        answer: "Cet écart est <strong>attendu et souhaitable</strong> : il reflète le différentiel structurel B2B (Mobilize, enchères pros) vs B2C (AutoScout24, particuliers). Un modèle qui prédirait à parité serait <strong>dangereusement optimiste</strong> pour un usage financier.",
-        methodology: "AutoScout24 affiche des prix <em>demandés</em> par les vendeurs (particuliers + concessions), avec une marge de négociation typique de 10-15 % et un biais d'échantillonnage vers les véhicules les mieux équipés. Notre modèle est entraîné sur 644 000 prix de <em>transactions réelles</em> du marché VO allemand, qui incluent les ventes B2B, reprises et ventes institutionnelles — typiquement 15 à 25 % sous les annonces B2C. Mobilize revend en fin de contrat principalement via canaux B2B : notre modèle prédit donc les prix réellement obtenus, pas les prix optimistes affichés. L'écart -10.66 % (modèle post-COVID retenu, vs 17.27 % pour la baseline full-train) peut servir de <strong>borne supérieure</strong> pour estimer le prix maximum théorique en vente directe B2C, avec un facteur de recalibration ×1.119.",
+        question: "Comment interpréter l'écart vs AutoScout24 ?",
+        answer: "Cet écart est <strong>attendu et souhaitable</strong> : il reflète le différentiel structurel B2B ([Client], enchères pros) vs B2C (AutoScout24, particuliers). Un modèle qui prédirait à parité serait <strong>dangereusement optimiste</strong> pour un usage financier.",
+        methodology: "AutoScout24 affiche des prix <em>demandés</em> par les vendeurs (particuliers + concessions), avec une marge de négociation typique de 10-15 % et un biais d'échantillonnage vers les véhicules les mieux équipés. Notre modèle est entraîné sur prix de <em>transactions réelles</em> du marché VO cible, qui incluent les ventes B2B, reprises et ventes institutionnelles — typiquement 15 à 25 % sous les annonces B2C. [Client] revend en fin de contrat principalement via canaux B2B : notre modèle prédit donc les prix réellement obtenus, pas les prix optimistes affichés. L'écart X % (modèle post-COVID retenu, vs X % pour la baseline full-train) peut servir de <strong>borne supérieure</strong> pour estimer le prix maximum théorique en vente directe B2C, avec un facteur de recalibration ×N.",
         sources: [
             { type: 'data', label: 'scrape_validation_results.json' },
             { type: 'code', label: 'scrape_validation.py' },
@@ -706,19 +706,19 @@ const RAG_CANNED = {
         sources: [
             { type: 'data', label: 'market_robustness_results.json' },
             { type: 'code', label: 'used_market_analysis.py' },
-            { type: 'data', label: '190 fichiers KBA scrapés (FZ 9 + FZ 10, 2018-2025)' },
+            { type: 'data', label: 'fichiers KBA scrapés (FZ 9 + FZ 10, 2018-2025)' },
         ],
         confidence: 'high',
         confidence_basis: "4 configurations triangulent le résultat, p-values robustes sur 58 à 95 mois d'observations.",
     },
     'portfolio-vr': {
         question: "Quelle est la VR moyenne du portefeuille ?",
-        answer: "<strong>Décote moyenne ~49.5 %</strong> sur les 1 951 véhicules du portefeuille — soit une <strong>exposition totale ~20 M€</strong> de valeur résiduelle prédite à la fin des contrats.",
+        answer: "<strong>Décote moyenne ~49.5 %</strong> sur les véhicules du portefeuille — soit une <strong>exposition totale ~20 M€</strong> de valeur résiduelle prédite à la fin des contrats.",
         methodology: "Prédictions générées par l'ensemble CatBoost + XGBoost appliqué à l'état prévisible de chaque véhicule à la fin de son contrat (age_months recalculé, mileage_at_end = initial_mileage + contract_mileage, transformations log cohérentes avec le training). La distribution centrée sur ~50 % de décote est typique pour des contrats 3-5 ans sur le segment Renault/Dacia/Nissan. Stress tests calibrés BCE/EBA appliqués (-5 / -10 / -15 %) pour donner une fourchette de pertes sous scénarios adverses. Le top 10 des décotes les plus fortes identifie les contrats actionnables (revente anticipée, renégociation).",
         sources: [
             { type: 'data', label: 'prediction_portfolio.csv' },
             { type: 'code', label: 'vr_pipeline.py' },
-            { type: 'data', label: '1 951 contrats × 8 colonnes' },
+            { type: 'data', label: 'contrats × 8 colonnes' },
         ],
         confidence: 'medium',
         confidence_basis: "Confiance élevée sur la valeur centrale ; modérée sous chocs > 15 % (extrapolation hors historique observé).",
@@ -1073,7 +1073,7 @@ function renderAllCharts() {
     safeRender('renderStressTest4951',         renderStressTest4951,         c.stress_test_4951);
     safeRender('renderAs24PostCovid',          renderAs24PostCovid,          c.as24_postcovid);
 
-    // Section 08 — Pipeline Structuré (Houssem)
+    // Section 08 — Pipeline Structuré (Structured Pipeline)
     safeRender('renderHoussemPipeline',        renderHoussemPipeline,        c.houssem_pipeline);
 
     // Fill section 07 placeholders (« -- » bandeau et bullets « Lecture finale »)
@@ -1908,11 +1908,11 @@ const NAV_PREVIEW = {
                     text: "Page d'accueil : titre du projet, executive summary 3 bullets, KPIs primaires & audit-proof, présentation guidée 3 min.",
                     text_en: "Landing page: project title, 3-bullet executive summary, primary & audit-proof KPIs, 3-min guided tour." },
     context:      { title: 'Contexte Métier',        title_en: 'Business Context',
-                    text: "Pourquoi la VR est cruciale pour Mobilize : définition VR + enjeux financiers (sur/sous-estimation).",
-                    text_en: "Why RV matters for Mobilize: definition + financial stakes (over/under-estimation)." },
+                    text: "Pourquoi la VR est cruciale pour [Client] : définition VR + enjeux financiers (sur/sous-estimation).",
+                    text_en: "Why RV matters for [Client]: definition + financial stakes (over/under-estimation)." },
     eda:          { title: 'Analyse Exploratoire',   title_en: 'Exploratory Analysis',
-                    text: "644 k transactions analysées sur 3 onglets : variables numériques, catégorielles, matrice de corrélation.",
-                    text_en: "644k transactions across 3 tabs: numeric variables, categorical, correlation matrix." },
+                    text: "Transactions analysées sur 3 onglets : variables numériques, catégorielles, matrice de corrélation.",
+                    text_en: "Transactions across 3 tabs: numeric variables, categorical, correlation matrix." },
     hicp:         { title: 'Variables Macro (HICP)', title_en: 'Macro Variables (HICP)',
                     text: "Innovation macroéconomique : intégration HICP + tests de robustesse Brent crude oil et tension marché KBA.",
                     text_en: "Macro innovation: HICP integration + Brent crude and KBA market tension robustness tests." },
@@ -1929,14 +1929,14 @@ const NAV_PREVIEW = {
                     text: "Validation indépendante : split aléatoire stratifié, target log_ratio, propensity reweighting, monotonic constraints, SHAP global. Verdict comparé à la section 06.",
                     text_en: "Independent validation: stratified random split, log_ratio target, propensity reweighting, monotonic constraints, global SHAP. Verdict cross-checked vs section 06." },
     portfolio:    { title: 'Prédictions Portfolio',  title_en: 'Portfolio Predictions',
-                    text: "1 951 véhicules prédits : distribution prix, décote, familles de dépréciation, validation cohérence.",
-                    text_en: "1,951 vehicles predicted: price distribution, depreciation, families, coherence validation." },
+                    text: "Véhicules prédits : distribution prix, décote, familles de dépréciation, validation cohérence.",
+                    text_en: "Vehicles predicted: price distribution, depreciation, families, coherence validation." },
     stress:       { title: 'Stress Test 49/51',      title_en: 'Stress Test 49/51',
                     text: "Split temporel train 49% / test 51% chronologique post-COVID. Mesure la tenue du modèle sur un horizon de généralisation étendu — ranking conservé = robustesse.",
                     text_en: "Chronological post-COVID split train 49% / test 51%. Measures model stability on an extended generalization horizon — ranking preserved = robustness." },
     validation:   { title: 'Validation Externe',     title_en: 'External Validation',
-                    text: "Scraping AutoScout24 temps réel. 10 modèles confrontés, écart médian -10.66 % (signature B2B vs B2C).",
-                    text_en: "Real-time AutoScout24 scraping. 10 models confronted, -10.66% median gap (B2B vs B2C signature)." },
+                    text: "Scraping AutoScout24 temps réel. Modèles confrontés, écart médian X % (signature B2B vs B2C).",
+                    text_en: "Real-time AutoScout24 scraping. Models confronted, X% median gap (B2B vs B2C signature)." },
     risk:         { title: 'Analyse de Risque',      title_en: 'Risk Analysis',
                     text: "Exposition portefeuille ~20 M€. Stress tests BCE/EBA + top 10 véhicules à risque actionnable.",
                     text_en: "Portfolio exposure ~€20M. ECB/EBA stress tests + top 10 actionable at-risk vehicles." },
@@ -3338,7 +3338,7 @@ function renderBrentMetricsTable(results) {
 }
 
 // ============================================================
-// KBA TENSION — courbe de contexte marché VO allemand
+// KBA TENSION — courbe de contexte marché VO cible
 // ============================================================
 function renderKbaTension(id, data, fallback) {
     const el = document.getElementById(id);
@@ -3368,7 +3368,7 @@ function renderKbaTension(id, data, fallback) {
         } : null;
         const traces = headlineTrace ? [energyTrace, headlineTrace] : [energyTrace];
         const layout = mergeLayout({
-            title: { text: 'Contexte macro du marché allemand (HICP 2018-2025)', font: { size: 13, color: '#cbd5e1' }, x: 0, xanchor: 'left' },
+            title: { text: 'Contexte macro du marché cible (HICP 2018-2025)', font: { size: 13, color: '#cbd5e1' }, x: 0, xanchor: 'left' },
             yaxis: { title: 'Variation annuelle (%)', gridcolor: 'rgba(148,163,184,0.08)', zeroline: true, zerolinecolor: 'rgba(148,163,184,0.25)' },
             margin: { t: 40, b: 40, l: 55, r: 20 },
             legend: { orientation: 'h', y: -0.22, x: 0.5, xanchor: 'center' },
@@ -3470,10 +3470,10 @@ const TRANSLATIONS = {
         nav_depreciation: 'Dépréciation',
         nav_results: 'Évaluation des Modèles', nav_portfolio: 'Portfolio', nav_simulator: 'Simulateur',
         hero_title: 'Prédiction de la<br><span class="gradient-text">Valeur Résiduelle</span><br>Automobile',
-        hero_badge: "Challenge Nexialog — Mobilize Financial Services",
-        hero_subtitle: "Modèle ML pour le leasing automobile allemand.",
+        hero_badge: "Challenge Nexialog — [Client]",
+        hero_subtitle: "Modèle ML pour le leasing automobile.",
         exec_what_built: "Ce que l'on a construit",
-        exec_what_built_text: 'Modèle ML de valeur résiduelle entraîné sur <strong id="exec-n-transactions">644&nbsp;000</strong> transactions du marché de l\'occasion allemand.',
+        exec_what_built_text: 'Modèle ML de valeur résiduelle entraîné sur <strong id="exec-n-transactions">transactions</strong> du marché de l\'occasion.',
         exec_key_result: "Résultat principal",
         exec_key_result_text: 'Ensemble <strong id="exec-best-model">CatBoost + XGBoost</strong> &mdash; <span class="exec-accent" id="exec-mape-eur">6.08&nbsp;%</span> MAPE EUR (audit-proof : <span id="exec-mape-lr">9.2&nbsp;%</span> log_ratio) sur test hold-out 20&nbsp;%.',
         exec_why_matters: "Pourquoi ça compte",
@@ -3483,11 +3483,11 @@ const TRANSLATIONS = {
         ctx_title: 'Contexte Métier',
         ctx_desc: "Comprendre l'enjeu stratégique de la valeur résiduelle dans le leasing automobile",
         ctx_vr_title: "Qu'est-ce que la Valeur Résiduelle ?",
-        ctx_stakes_title: 'Enjeu pour Mobilize Financial Services',
+        ctx_stakes_title: 'Enjeu pour [Client]',
         ctx_mission: 'Notre mission',
         ctx_methodo: 'Méthodologie',
         eda_title: 'Analyse Exploratoire',
-        eda_desc: "Exploration des 644 000+ transactions du marché de l'occasion allemand (2018-2025)",
+        eda_desc: "Exploration des transactions du marché de l'occasion",
         eda_overview: "Vue d'ensemble des données",
         tab_numeric: 'Variables Numériques', tab_categorical: 'Variables Catégorielles', tab_correlations: 'Corrélations',
         hicp_title: 'Variables Macroéconomiques (HICP)',
@@ -3499,7 +3499,7 @@ const TRANSLATIONS = {
         res_title: 'Évaluation des Modèles',
         res_desc: 'Comparaison des candidats, performance en production (split temporel post-COVID) et diagnostics résiduels',
         port_title: 'Prédictions sur le Portfolio',
-        port_desc: 'Application du modèle retenu aux 1 951 véhicules du portefeuille de leasing',
+        port_desc: 'Application du modèle retenu aux véhicules du portefeuille de leasing',
         sim_title: 'Simulateur de Valeur Résiduelle',
         sim_desc: "Estimez la valeur de revente d'un véhicule en fonction de ses caractéristiques",
         sim_form_title: 'Caractéristiques du véhicule',
@@ -3540,15 +3540,15 @@ const TRANSLATIONS = {
         exec_gain_label: 'gain MAPE vs baseline naïve k·V₀',
         exec_portfolio_label: 'véhicules prédits sur le portefeuille',
         exec_decote_label: 'décote moyenne portefeuille',
-        ctx_insight: 'La VR pèse <strong>40&ndash;60&nbsp;%</strong> du prix catalogue : une erreur de quelques points de pourcentage se traduit en millions d\'euros à l\'échelle du portefeuille Mobilize.',
-        eda_insight: 'Distribution stable sur <strong>644&nbsp;000 transactions</strong> filtrées 12&ndash;108&nbsp;mois ; <code>log_ratio</code> médian &asymp;&nbsp;-1 confirme une décote typique de&nbsp;~63&nbsp;%.',
+        ctx_insight: 'La VR pèse <strong>40&ndash;60&nbsp;%</strong> du prix catalogue : une erreur de quelques points de pourcentage se traduit en millions d\'euros à l\'échelle du portefeuille.',
+        eda_insight: 'Distribution stable sur <strong>transactions</strong> filtrées 12&ndash;108&nbsp;mois ; <code>log_ratio</code> médian &asymp;&nbsp;-1 confirme une décote typique de&nbsp;~63&nbsp;%.',
         hicp_insight: 'Trois features HICP ramènent la MAPE de <strong>~13&nbsp;%</strong> à <strong>~7&nbsp;%</strong> ; Brent et tension marché KBA testés n\'apportent rien de plus — le signal macro est déjà capté.',
         feat_insight: '<strong>62 modèles</strong> réduits à une dizaine de familles homogènes de dépréciation via KMeans sur les vecteurs (&alpha;, k&#8321;, k&#8322;).',
         dep_insight: 'Courbe d\'âge <strong>décroissante convexe</strong> confirmée empiriquement : le modèle exponentiel de Nexialog est validé sur données réelles.',
         mod_insight: '<strong>CatBoost</strong> et XGBoost quasi ex-aequo, <strong>~10&nbsp;pp devant Ridge</strong> ; un ensemble pondéré XGB + CatBoost est retenu pour le livrable final.',
         res_insight: 'Résidus <strong>centrés sur 0</strong>, majorité dans &plusmn;&nbsp;1&nbsp;000&nbsp;€ ; aucun biais systématique sur les 20&nbsp;% jamais vus pendant l\'entraînement.',
-        port_insight: '<strong>1&nbsp;951 véhicules</strong> prédits, cohérence économique vérifiée : dépréciation monotone par âge et hiérarchie par marque maintenue.',
-        val_insight: 'Écart médian <strong>-10.66&nbsp;%</strong> vs AutoScout24 : cohérent avec le différentiel B2B / B2C — signature d\'un modèle conservateur, <em>pas</em> d\'une erreur.',
+        port_insight: '<strong>Véhicules</strong> prédits, cohérence économique vérifiée : dépréciation monotone par âge et hiérarchie par marque maintenue.',
+        val_insight: 'Écart médian <strong>X&nbsp;%</strong> vs AutoScout24 : cohérent avec le différentiel B2B / B2C — signature d\'un modèle conservateur, <em>pas</em> d\'une erreur.',
         risk_insight: 'Exposition totale <strong>~20&nbsp;M€</strong>, stress tests BCE/EBA -5&nbsp;% à -15&nbsp;%, top&nbsp;10 des véhicules à risque <strong>directement actionnable</strong> pour revente anticipée.',
         sim_insight: 'Prédiction <strong>CatBoost temps réel</strong> sur un véhicule personnalisé — démonstration opérationnelle bout-en-bout du modèle.',
     },
@@ -3560,10 +3560,10 @@ const TRANSLATIONS = {
         nav_depreciation: 'Depreciation',
         nav_results: 'Model Evaluation', nav_portfolio: 'Portfolio', nav_simulator: 'Simulator',
         hero_title: 'Automotive<br><span class="gradient-text">Residual Value</span><br>Prediction Model',
-        hero_badge: "Nexialog Challenge — Mobilize Financial Services",
-        hero_subtitle: 'ML model for German automotive leasing.',
+        hero_badge: "Nexialog Challenge — [Client]",
+        hero_subtitle: 'ML model for automotive leasing.',
         exec_what_built: 'What we built',
-        exec_what_built_text: 'ML residual value model trained on <strong id="exec-n-transactions">644,000</strong> transactions from the German used-car market.',
+        exec_what_built_text: 'ML residual value model trained on <strong id="exec-n-transactions">transactions</strong> from the used-car market.',
         exec_key_result: 'Key result',
         exec_key_result_text: 'Ensemble <strong id="exec-best-model">CatBoost + XGBoost</strong> &mdash; <span class="exec-accent" id="exec-mape-eur">6.08%</span> MAPE EUR (audit-proof: <span id="exec-mape-lr">9.2%</span> log_ratio) on 20% hold-out test.',
         exec_why_matters: 'Why it matters',
@@ -3573,11 +3573,11 @@ const TRANSLATIONS = {
         ctx_title: 'Business Context',
         ctx_desc: 'Understanding the strategic importance of residual value in automotive leasing',
         ctx_vr_title: 'What is Residual Value?',
-        ctx_stakes_title: 'Stakes for Mobilize Financial Services',
+        ctx_stakes_title: 'Stakes for [Client]',
         ctx_mission: 'Our mission',
         ctx_methodo: 'Methodology',
         eda_title: 'Exploratory Analysis',
-        eda_desc: 'Exploration of 644,000+ transactions from the German used car market (2018-2025)',
+        eda_desc: 'Exploration of transactions from the used car market',
         eda_overview: 'Data overview',
         tab_numeric: 'Numeric Variables', tab_categorical: 'Categorical Variables', tab_correlations: 'Correlations',
         hicp_title: 'Macroeconomic Variables (HICP)',
@@ -3589,7 +3589,7 @@ const TRANSLATIONS = {
         res_title: 'Model Evaluation',
         res_desc: 'Candidate comparison, production performance (post-COVID temporal split) and residual diagnostics',
         port_title: 'Portfolio Predictions',
-        port_desc: 'Applying the selected model to the 1,951 vehicles in the leasing portfolio',
+        port_desc: 'Applying the selected model to the vehicles in the leasing portfolio',
         sim_title: 'Residual Value Simulator',
         sim_desc: 'Estimate the resale value of a vehicle based on its characteristics',
         sim_form_title: 'Vehicle characteristics',
@@ -3630,15 +3630,15 @@ const TRANSLATIONS = {
         exec_gain_label: 'MAPE gain vs naïve baseline k·V₀',
         exec_portfolio_label: 'vehicles predicted on the portfolio',
         exec_decote_label: 'average portfolio depreciation',
-        ctx_insight: 'RV represents <strong>40&ndash;60%</strong> of the catalogue price: a few percentage points of error translate to millions of euros at the scale of Mobilize\'s portfolio.',
-        eda_insight: 'Stable distribution over <strong>644,000 transactions</strong> filtered to 12&ndash;108 months; median <code>log_ratio</code> &asymp; -1 confirms a typical depreciation of ~63%.',
+        ctx_insight: 'RV represents <strong>40&ndash;60%</strong> of the catalogue price: a few percentage points of error translate to millions of euros at the scale of the portfolio.',
+        eda_insight: 'Stable distribution over <strong>transactions</strong> filtered to 12&ndash;108 months; median <code>log_ratio</code> &asymp; -1 confirms a typical depreciation of ~63%.',
         hicp_insight: 'Three HICP features bring MAPE down from <strong>~13%</strong> to <strong>~7%</strong>; Brent and KBA market tension tested add nothing more — the macro signal is already captured.',
         feat_insight: '<strong>62 models</strong> reduced to around ten homogeneous depreciation families via KMeans on (&alpha;, k&#8321;, k&#8322;) vectors.',
         dep_insight: 'Monotonically decreasing <strong>convex age curve</strong> confirmed empirically: Nexialog\'s exponential model is validated on real data.',
         mod_insight: '<strong>CatBoost</strong> and XGBoost nearly tied, <strong>~10 pp ahead of Ridge</strong>; a weighted XGB + CatBoost ensemble is retained for the final deliverable.',
         res_insight: 'Residuals <strong>centred on 0</strong>, majority within &plusmn;&nbsp;&euro;1,000; no systematic bias on the 20% never seen during training.',
-        port_insight: '<strong>1,951 vehicles</strong> predicted; economic coherence verified: monotonic depreciation by age and brand hierarchy preserved.',
-        val_insight: 'Median gap of <strong>-10.66%</strong> vs AutoScout24: consistent with the B2B / B2C differential — signature of a conservative model, <em>not</em> an error.',
+        port_insight: '<strong>Vehicles</strong> predicted; economic coherence verified: monotonic depreciation by age and brand hierarchy preserved.',
+        val_insight: 'Median gap of <strong>X%</strong> vs AutoScout24: consistent with the B2B / B2C differential — signature of a conservative model, <em>not</em> an error.',
         risk_insight: 'Total exposure <strong>~&euro;20M</strong>, ECB/EBA stress tests -5% to -15%, top&nbsp;10 at-risk vehicles <strong>directly actionable</strong> for early resale.',
         sim_insight: 'Real-time <strong>CatBoost</strong> prediction on a personalised vehicle — end-to-end operational demonstration of the model.',
     },
@@ -3705,7 +3705,7 @@ function applyTranslations() {
 
 
 // ============================================================
-// SECTION 08 — PIPELINE STRUCTURÉ (HOUSSEM)
+// SECTION 08 — PIPELINE STRUCTURÉ (STRUCTURED PIPELINE)
 // Validation indépendante : split aléatoire stratifié + target log_ratio.
 // 5 sous-renders : metrics chart + table, SHAP barres, segments brand/fuel,
 // + remplissage des spans dyn-houssem-*.

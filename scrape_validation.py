@@ -1,6 +1,6 @@
 """
 Validation externe : comparaison des prédictions du modèle avec les prix
-réels observés sur AutoScout24 (marché de l'occasion allemand).
+réels observés sur AutoScout24 (marché de l'occasion cible).
 
 Méthodologie :
 1. Pour chaque modèle du portfolio, on calcule l'âge et km médians à la

@@ -38,7 +38,7 @@
     <nav id="sidebar">
         <div class="nav-brand" style="flex-direction:column;align-items:center;gap:0;padding:0.75rem 0.5rem;margin-bottom:1.5rem">
             <img src="{{ url_for('static', filename='img/nexialog-logo.png') }}" alt="Nexialog" style="width:85%">
-            <img src="{{ url_for('static', filename='img/mobilize-logo.png') }}" alt="Mobilize Financial Services" style="width:50%;margin:0.6rem 0 0.8rem 0;filter:invert(1) hue-rotate(180deg)">
+            <img src="{{ url_for('static', filename='img/mobilize-logo.png') }}" alt="[Client]" style="width:50%;margin:0.6rem 0 0.8rem 0;filter:invert(1) hue-rotate(180deg)">
             <img src="{{ url_for('static', filename='img/mosef-logo.png') }}" alt="MoSEF" style="height:65px;border-radius:50%">
         </div>
         <ul class="nav-links nav-timeline">
@@ -135,7 +135,7 @@
             <span>Challenge Nexialog 2026</span>
             <div style="margin-top:0.5rem;display:flex;flex-direction:column;gap:0.2rem">
                 <a href="https://www.linkedin.com/in/tasnim-benallal-595444228/" target="_blank" style="color:var(--text-muted);font-size:0.7rem;text-decoration:none">Tasnim Benallal</a>
-                <a href="https://www.linkedin.com/in/houssemmajed/" target="_blank" style="color:var(--text-muted);font-size:0.7rem;text-decoration:none">Houssem Majed</a>
+                <span style="color:var(--text-muted);font-size:0.7rem">Pipeline contributor</span>
                 <a href="https://www.linkedin.com/in/melina-ait-said-b774962a7/" target="_blank" style="color:var(--text-muted);font-size:0.7rem;text-decoration:none">Melina Ait Said</a>
                 <a href="https://www.linkedin.com/in/victoria-vidal-/" target="_blank" style="color:var(--text-muted);font-size:0.7rem;text-decoration:none">Victoria Vidal</a>
             </div>
@@ -149,7 +149,7 @@
         <section id="hero" class="section hero-section">
             <div class="hero-bg"></div>
             <header class="hero-content">
-                <div class="hero-badge" data-i18n="hero_badge">Challenge Nexialog &mdash; Mobilize Financial Services</div>
+                <div class="hero-badge" data-i18n="hero_badge">Challenge Nexialog &mdash; [Client]</div>
                 <h1 data-i18n-html="hero_title">Prédiction de la<br><span class="gradient-text">Valeur Résiduelle</span><br>Automobile</h1>
                 <p class="hero-subtitle" data-i18n="hero_subtitle">Modèle ML pour le leasing automobile allemand.</p>
 
@@ -191,7 +191,7 @@
                         <span data-i18n="tour_start_label">Lancer la présentation guidée</span>
                         <span class="hero-cta__sub" data-i18n="tour_start_sub">5 min</span>
                     </button>
-                    <a href="{{ url_for('static', filename='groupe_NOM1_NOM2_NOM3_NOM4.csv') }}" download class="hero-cta--download" title="Télécharger le fichier de soumission (1 951 prédictions)">
+                    <a href="{{ url_for('static', filename='predictions.csv') }}" download class="hero-cta--download" title="Télécharger le fichier de soumission (prédictions du portefeuille)">
                         <svg viewBox="0 0 24 24" aria-hidden="true" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                         <span>CSV soumission</span>
                     </a>
@@ -207,7 +207,7 @@
                     <span class="section-number">01</span>
                     <h2 data-i18n="ctx_title">Contexte Métier</h2>
                     <p class="section-desc" data-i18n="ctx_desc">Comprendre l'enjeu stratégique de la valeur résiduelle dans le leasing automobile</p>
-                    <p class="section-key-insight" data-i18n-html="ctx_insight">La VR pèse <strong>40&ndash;60&nbsp;%</strong> du prix catalogue : une erreur de quelques points de pourcentage se traduit en millions d'euros à l'échelle du portefeuille Mobilize.</p>
+                    <p class="section-key-insight" data-i18n-html="ctx_insight">La VR pèse <strong>40&ndash;60&nbsp;%</strong> du prix catalogue : une erreur de quelques points de pourcentage se traduit en millions d'euros à l'échelle du portefeuille.</p>
                 </div>
 
                 <!-- 3 cards thématiques cliquables (modales zoom, pattern partagé avec EDA/HICP) -->
@@ -249,11 +249,11 @@
                                 <span data-i18n="ctx_mission">Notre mission</span>
                                 <svg class="collapse-card__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                             </h3>
-                            <span class="collapse-card__hint">1 951 véhicules · 644 k transactions · marché allemand</span>
+                            <span class="collapse-card__hint">Portefeuille véhicules · marché de l'occasion</span>
                         </button>
                         <div class="collapse-card__body" id="ctx-mission-body" hidden>
-                            <p>Prédire le <strong>prix de revente en euros</strong> de chaque véhicule à la fin de son contrat de leasing, pour un portefeuille de <strong>1&nbsp;951&nbsp;véhicules</strong> des marques Renault, Dacia et Nissan commercialisés en Allemagne.</p>
-                            <p>Le modèle est entraîné sur <strong>~644&nbsp;000 transactions</strong> réelles observées sur le marché de l'occasion allemand.</p>
+                            <p>Prédire le <strong>prix de revente en euros</strong> de chaque véhicule à la fin de son contrat de leasing, pour un portefeuille de <strong>véhicules du portefeuille</strong>.</p>
+                            <p>Le modèle est entraîné sur <strong>transactions</strong> réelles observées sur le marché de l'occasion cible.</p>
                         </div>
                     </div>
 
@@ -263,7 +263,7 @@
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
                             </span>
                             <h3 class="collapse-card__title">
-                                <span data-i18n="ctx_stakes_title">Enjeux pour Mobilize Financial Services</span>
+                                <span data-i18n="ctx_stakes_title">Enjeux pour [Client]</span>
                                 <svg class="collapse-card__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                             </h3>
                             <span class="collapse-card__hint">Risques surestimation / sous-estimation</span>
@@ -297,7 +297,7 @@
                 <div class="section-header">
                     <span class="section-number">02</span>
                     <h2 data-i18n="eda_title">Analyse Exploratoire</h2>
-                    <p class="section-desc" data-i18n="eda_desc">Exploration des 644 000+ transactions du marché de l'occasion allemand (2018-2025)</p>
+                    <p class="section-desc" data-i18n="eda_desc">Exploration des transactions du marché de l'occasion</p>
                 </div>
                 <div class="card">
                     <h3 data-i18n="eda_overview">Vue d'ensemble des données</h3>
@@ -642,8 +642,8 @@
                                     <span class="collapse-card__hint" data-i18n="coll_hicp_kba">Voir le test de robustesse KBA (innovation)</span>
                                 </button>
                                 <div class="collapse-card__body" id="coll-hicp-kba-body" hidden>
-                                    <p><strong>L'hypothèse :</strong> la tension offre/demande sur le marché VO allemand (ratio <em>Besitzumschreibungen</em> / <em>Neuzulassungen</em>) pourrait apporter un signal de demande orthogonal aux features HICP. Le choc COVID 2021-2022 a produit une flambée historique des prix d'occasion : un indicateur de tension devrait en théorie le capturer.</p>
-                                    <p><strong>Les données :</strong> scraping automatisé de 190 fichiers du <a href="https://www.kba.de/DE/Statistik/Fahrzeuge/" target="_blank" rel="noopener">Kraftfahrt-Bundesamt</a> (FZ 9 — transferts de propriété VO, FZ 10 — immatriculations VN) sur la période 2018-01 → 2025-11, avec gestion des 3 formats historiques (xls 2018, xlsx 2019-2020, xlsx/PDF 2021+). Sur 95 mois, FZ9 disponible pour 58 mois (2021-2025) et FZ10 pour 93 mois (2018-2025).</p>
+                                    <p><strong>L'hypothèse :</strong> la tension offre/demande sur le marché VO cible (ratio <em>Besitzumschreibungen</em> / <em>Neuzulassungen</em>) pourrait apporter un signal de demande orthogonal aux features HICP. Le choc COVID 2021-2022 a produit une flambée historique des prix d'occasion : un indicateur de tension devrait en théorie le capturer.</p>
+                                    <p><strong>Les données :</strong> scraping automatisé de fichiers du <a href="https://www.kba.de/DE/Statistik/Fahrzeuge/" target="_blank" rel="noopener">Kraftfahrt-Bundesamt</a> (FZ 9 — transferts de propriété VO, FZ 10 — immatriculations VN) sur la période 2018-01 → 2025-11, avec gestion des 3 formats historiques (xls 2018, xlsx 2019-2020, xlsx/PDF 2021+). Sur 95 mois, FZ9 disponible pour 58 mois (2021-2025) et FZ10 pour 93 mois (2018-2025).</p>
                                     <p><strong>Méthodologie — régression post-hoc sur les résidus :</strong> pour éviter l'endogénéité (le ratio VO/VN reflète partiellement les prix), la tension n'est PAS injectée comme feature d'entraînement. À la place :</p>
                                     <ol>
                                         <li>Entraînement du CatBoost baseline (features actuelles)</li>
@@ -1269,7 +1269,7 @@
             </div>
         </section>
 
-        <!-- ==================== 07 PIPELINE STRUCTURÉ HOUSSEM ==================== -->
+        <!-- ==================== 07 PIPELINE STRUCTURÉ ==================== -->
         <section id="houssem" class="section">
             <div class="container">
                 <div class="section-header">
@@ -1492,7 +1492,7 @@
                 <div class="section-header">
                     <span class="section-number">08</span>
                     <h2 data-i18n="port_title">Prédictions sur le Portfolio</h2>
-                    <p class="section-desc" data-i18n="port_desc">Application du modèle retenu aux 1 951 véhicules du portefeuille de leasing</p>
+                    <p class="section-desc" data-i18n="port_desc">Application du modèle retenu aux véhicules du portefeuille de leasing</p>
                 </div>
 
                 <!-- 3 bulles thématiques modales -->
@@ -1758,7 +1758,7 @@
                                     </div>
                                     <div class="purpose-block">
                                         <div class="purpose-label">⚖️ Détection de biais</div>
-                                        <p>L'écart systématique (~10 %) révèle l'axe <strong>B2B vs B2C</strong> : Mobilize revend en enchères pros, donc logiquement sous les annonces particuliers.</p>
+                                        <p>L'écart systématique (~10 %) révèle l'axe <strong>B2B vs B2C</strong> : [Client] revend en enchères pros, donc logiquement sous les annonces particuliers.</p>
                                         <p>Écart cohérent = modèle bien positionné conservateur.</p>
                                     </div>
                                     <div class="purpose-block">
@@ -1809,12 +1809,12 @@
                         <div class="collapse-card__body" id="val-results-body" hidden>
                             <div class="grid-3">
                                 <div class="card stat-card">
-                                    <div class="stat-value">-10.66%</div>
-                                    <div class="stat-label">Écart médian prédit vs AS24 <span class="tip">i<span class="tip-text"><strong>Écart médian prédit vs AS24</strong>Différence relative entre la VR prédite par notre modèle et le prix médian des annonces AutoScout24 pour des véhicules comparables (même modèle, même âge, même km).<br><br>Un écart de <strong>-10.66 %</strong> signifie que nos prédictions sont en moyenne 10.66 % sous les prix AS24. C'est <strong>attendu et souhaitable</strong> : AS24 affiche des prix B2C (particuliers, avec marge de négo ~10-15 %), alors que Mobilize revend en B2B (enchères pros, -15 à -25 % sous B2C).<br><br>Un écart proche de 0 serait au contraire <strong>dangereux</strong> (modèle trop optimiste pour un usage financier).</span></span></div>
+                                    <div class="stat-value">—</div>
+                                    <div class="stat-label">Écart médian prédit vs AS24 <span class="tip">i<span class="tip-text"><strong>Écart médian prédit vs AS24</strong>Différence relative entre la VR prédite par notre modèle et le prix médian des annonces AutoScout24 pour des véhicules comparables (même modèle, même âge, même km).<br><br>L'écart signifie que nos prédictions sont sous les prix AS24. C'est <strong>attendu et souhaitable</strong> : AS24 affiche des prix B2C (particuliers, avec marge de négo ~10-15 %), alors que [Client] revend en B2B (enchères pros, -15 à -25 % sous B2C).<br><br>Un écart proche de 0 serait au contraire <strong>dangereux</strong> (modèle trop optimiste pour un usage financier).</span></span></div>
                                 </div>
                                 <div class="card stat-card">
                                     <div class="stat-value">10</div>
-                                    <div class="stat-label">Modèles validés <span class="tip">i<span class="tip-text"><strong>10 modèles confrontés à AutoScout24</strong><strong style="color:var(--accent-light);display:block;margin-top:8px;margin-bottom:2px;font-size:0.82rem">Renault (6)</strong>Captur, Clio, Mégane, Scénic, Twingo, Kangoo<strong style="color:var(--accent-light);display:block;margin-top:8px;margin-bottom:2px;font-size:0.82rem">Dacia (3)</strong>Duster, Sandero, Spring<strong style="color:var(--accent-light);display:block;margin-top:8px;margin-bottom:2px;font-size:0.82rem">Nissan (1)</strong>Micra</span></span></div>
+                                    <div class="stat-label">Modèles validés <span class="tip">i<span class="tip-text"><strong>Modèles confrontés à AutoScout24</strong>Modèles du portefeuille validés par scraping</span></span></div>
                                 </div>
                                 <div class="card stat-card">
                                     <div class="stat-value">Conservateur</div>
@@ -1842,21 +1842,12 @@
                         </button>
                         <div class="collapse-card__body" id="val-table-body" hidden>
                             <div class="card">
-                                <h3>Tableau de validation <span class="tip tip-wide">i<span class="tip-text"><strong>Tableau de validation</strong>Comparaison détaillée modèle par modèle entre nos prédictions et les prix réels scrapés sur AutoScout24.<br><br><strong>Colonnes :</strong><br>• <strong>Portfolio n</strong> : nombre de véhicules de ce modèle dans le portefeuille Mobilize<br>• <strong>Prédit (€)</strong> : médiane des VR prédites par notre modèle<br>• <strong>AS24 (€)</strong> : médiane des prix affichés sur AutoScout24 pour des véhicules comparables<br>• <strong>Annonces AS24</strong> : nombre d'annonces scrapées pour calculer la médiane<br>• <strong>Écart</strong> : (Prédit − AS24) / AS24, en %<br><br><strong>Code couleur :</strong> vert = écart < 15 % (très proche), orange = 15-30 % (cohérent B2B/B2C), rouge = > 30 % (à investiguer).</span></span></h3>
+                                <h3>Tableau de validation <span class="tip tip-wide">i<span class="tip-text"><strong>Tableau de validation</strong>Comparaison détaillée modèle par modèle entre nos prédictions et les prix réels scrapés sur AutoScout24.<br><br><strong>Colonnes :</strong><br>• <strong>Portfolio n</strong> : nombre de véhicules de ce modèle dans le portefeuille<br>• <strong>Prédit (€)</strong> : médiane des VR prédites par notre modèle<br>• <strong>AS24 (€)</strong> : médiane des prix affichés sur AutoScout24 pour des véhicules comparables<br>• <strong>Annonces AS24</strong> : nombre d'annonces scrapées pour calculer la médiane<br>• <strong>Écart</strong> : (Prédit − AS24) / AS24, en %<br><br><strong>Code couleur :</strong> vert = écart < 15 % (très proche), orange = 15-30 % (cohérent B2B/B2C), rouge = > 30 % (à investiguer).</span></span></h3>
                                 <div>
                                     <table>
                                         <thead><tr><th>Marque</th><th>Modèle</th><th>Âge (ans)</th><th>Km</th><th>Portfolio n</th><th>Prédit (€)</th><th>AS24 (€)</th><th>Annonces AS24</th><th>Écart</th></tr></thead>
                                         <tbody>
-                                            <tr><td><strong>RENAULT</strong></td><td>CAPTUR</td><td>6</td><td>50&nbsp;019</td><td>171</td><td>13&nbsp;513</td><td>14&nbsp;980</td><td>19</td><td style="color:var(--teal);font-weight:700">-9.79%</td></tr>
-                                            <tr><td><strong>RENAULT</strong></td><td>CLIO</td><td>6</td><td>50&nbsp;009</td><td>310</td><td>10&nbsp;109</td><td>12&nbsp;790</td><td>19</td><td style="color:#f59e0b;font-weight:700">-20.96%</td></tr>
-                                            <tr><td><strong>RENAULT</strong></td><td>MEGANE</td><td>5</td><td>50&nbsp;031</td><td>70</td><td>17&nbsp;994</td><td>15&nbsp;584</td><td>19</td><td style="color:#f59e0b;font-weight:700">+15.46%</td></tr>
-                                            <tr><td><strong>RENAULT</strong></td><td>SCENIC</td><td>7</td><td>50&nbsp;034</td><td>3</td><td>12&nbsp;977</td><td>15&nbsp;900</td><td>19</td><td style="color:#f59e0b;font-weight:700">-18.38%</td></tr>
-                                            <tr><td><strong>RENAULT</strong></td><td>TWINGO</td><td>5</td><td>40&nbsp;044</td><td>150</td><td>9&nbsp;716</td><td>10&nbsp;700</td><td>20</td><td style="color:var(--teal);font-weight:700">-9.20%</td></tr>
-                                            <tr><td><strong>RENAULT</strong></td><td>KANGOO</td><td>6</td><td>60&nbsp;050</td><td>51</td><td>12&nbsp;683</td><td>12&nbsp;700</td><td>20</td><td style="color:var(--teal);font-weight:700">-0.13%</td></tr>
-                                            <tr><td><strong>DACIA</strong></td><td>DUSTER</td><td>6</td><td>50&nbsp;045</td><td>205</td><td>12&nbsp;331</td><td>13&nbsp;940</td><td>20</td><td style="color:var(--teal);font-weight:700">-11.54%</td></tr>
-                                            <tr><td><strong>DACIA</strong></td><td>SANDERO</td><td>6</td><td>50&nbsp;036</td><td>255</td><td>9&nbsp;282</td><td>11&nbsp;490</td><td>19</td><td style="color:#f59e0b;font-weight:700">-19.22%</td></tr>
-                                            <tr><td><strong>DACIA</strong></td><td>SPRING</td><td>5</td><td>30&nbsp;045</td><td>151</td><td>9&nbsp;949</td><td>8&nbsp;888</td><td>19</td><td style="color:var(--teal);font-weight:700">+11.94%</td></tr>
-                                            <tr><td><strong>NISSAN</strong></td><td>MICRA</td><td>6.5</td><td>40&nbsp;046</td><td>20</td><td>8&nbsp;781</td><td>13&nbsp;490</td><td>19</td><td style="color:#ef4444;font-weight:700">-34.91%</td></tr>
+                                            <tr><td colspan="9" style="text-align:center;color:var(--text-muted)">Données confidentielles — voir rapport interne</td></tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -1879,10 +1870,10 @@
                     </button>
                     <div class="collapse-card__body" id="temporal-as24pc-body" hidden>
                         <div class="card chart-card" id="temporal-as24pc-card">
-                            <h3>Re-validation AutoScout24 — modèle post-COVID <span class="tip tip-wide">i<span class="tip-text"><strong>Validation externe sur 10 modèles C2C</strong>On rejoue la comparaison portfolio (1&nbsp;951 véhicules Mobilize) vs prix AutoScout24 scrapés (10 modèles × ~20 annonces), mais cette fois avec le modèle retenu entraîné uniquement sur le post-COVID. Deux lectures : (1) le biais médian se resserre-t-il ? (2) le facteur de recalibration B2B→C2C devient-il plus proche de 1 ? Si oui, le modèle capture mieux la dynamique C2C native et la correction multiplicative est moins massive.</span></span></h3>
-                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: -0.5rem;">train post-COVID=134,452 (&ge; 2022-01-01) · portfolio=1&nbsp;951 véh · sanity test MAPE=9.74% R²=0.921 R²_lr=0.8346 · facteur B2B→C2C x1.1195 (baseline x1.2091)</p>
+                            <h3>Re-validation AutoScout24 — modèle post-COVID <span class="tip tip-wide">i<span class="tip-text"><strong>Validation externe sur 10 modèles C2C</strong>On rejoue la comparaison portfolio (véhicules du portefeuille) vs prix AutoScout24 scrapés (10 modèles × ~20 annonces), mais cette fois avec le modèle retenu entraîné uniquement sur le post-COVID. Deux lectures : (1) le biais médian se resserre-t-il ? (2) le facteur de recalibration B2B→C2C devient-il plus proche de 1 ? Si oui, le modèle capture mieux la dynamique C2C native et la correction multiplicative est moins massive.</span></span></h3>
+                            <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: -0.5rem;">train post-COVID (&ge; 2022-01-01) · véhicules du portefeuille · métriques de sanity test · facteur B2B→C2C calculé</p>
                             <div id="chart-temporal-as24pc" class="chart-container"></div>
-                            <p style="margin-top: 0.75rem; font-style: italic; color: #94a3b8;">Post-COVID améliore l'alignement AS24 : |median delta| passe de 17.27% a 10.66% (-6.61pt). Le facteur de recalibration x1.1195 reste proche, mais le gain résiduel montre que le modèle capture mieux la dynamique C2C. Median |delta| réduit de 17.27% à 10.66% (Δ -6.61pt). Facteur de recalibration x1.1195 ramène la médiane du biais à 0.01% (max |delta| = 29.27%).</p>
+                            <p style="margin-top: 0.75rem; font-style: italic; color: #94a3b8;">Post-COVID améliore l'alignement AS24 : |median delta| réduit. Le facteur de recalibration ×N reste proche, mais le gain résiduel montre que le modèle capture mieux la dynamique C2C. Facteur de recalibration ×N ramène la médiane du biais à X% (max |delta| = X%).</p>
                         </div>
                     </div>
                 </div>
@@ -1890,18 +1881,18 @@
                 <div class="card conclusion-card collapse-card conclusion-collapse">
                     <button class="collapse-card__trigger" type="button" aria-expanded="false" aria-controls="coll-val-interp-body">
                         <h4 class="collapse-card__title">
-                            <span>Interprétation : pourquoi l'écart est positif pour Mobilize</span>
+                            <span>Interprétation : pourquoi l'écart est positif pour [Client]</span>
                             <svg class="collapse-card__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                         </h4>
                     </button>
                     <div class="collapse-card__body" id="coll-val-interp-body" hidden>
-                        <p>L'écart systématique entre nos prédictions et les prix AutoScout24 n'est pas une erreur : il reflète une <strong>distinction métier essentielle</strong> entre deux marchés. Ci-dessus, le chiffre ~17.27 % vient du modèle split random (baseline). Le modèle post-COVID retenu en production resserre le biais à <strong>-10.66 %</strong> (voir carte dédiée plus bas).</p>
+                        <p>L'écart systématique entre nos prédictions et les prix AutoScout24 n'est pas une erreur : il reflète une <strong>distinction métier essentielle</strong> entre deux marchés. Ci-dessus, le chiffre X % vient du modèle split random (baseline). Le modèle post-COVID retenu en production resserre le biais à <strong>X %</strong> (voir carte dédiée plus bas).</p>
                         <ul>
                             <li><strong>Marché AutoScout24 (B2C) :</strong> prix demandés par les vendeurs (particuliers, concessions). Inclut une <strong>marge de négociation de 10-15%</strong> et un biais d'échantillonnage vers les véhicules les mieux équipés/entretenus.</li>
-                            <li><strong>Notre modèle (entraîné sur used_market) :</strong> prédit les <strong>prix de transaction réels</strong> sur 644 000 ventes observées, incluant les ventes B2B, les reprises, les ventes institutionnelles — typiquement 15-25% sous les annonces B2C.</li>
-                            <li><strong>Implication stratégique :</strong> Mobilize Financial Services revend ses véhicules en fin de contrat principalement via des canaux <strong>B2B</strong> (enchères professionnelles, marchands). Notre modèle prédit donc les prix qu'ils obtiendront <strong>réellement</strong>, pas les prix optimistes d'annonces.</li>
+                            <li><strong>Notre modèle (entraîné sur used_market) :</strong> prédit les <strong>prix de transaction réels</strong> sur ventes observées, incluant les ventes B2B, les reprises, les ventes institutionnelles — typiquement 15-25% sous les annonces B2C.</li>
+                            <li><strong>Implication stratégique :</strong> [Client] revend ses véhicules en fin de contrat principalement via des canaux <strong>B2B</strong> (enchères professionnelles, marchands). Notre modèle prédit donc les prix qu'ils obtiendront <strong>réellement</strong>, pas les prix optimistes d'annonces.</li>
                             <li><strong>Validation positive :</strong> un modèle qui prédirait des prix aussi élevés qu'AutoScout24 serait <strong>trop optimiste</strong> pour un usage financier — ce serait un signal de surestimation dangereux.</li>
-                            <li><strong>Usage métier :</strong> l'écart résiduel peut servir de <strong>borne supérieure</strong> pour estimer le prix maximum théorique (si vente directe B2C) — utile pour des politiques de vente opportunistes. Le facteur de recalibration ×1.119 (post-COVID) produit une estimation C2C parallèle à la prédiction B2B native.</li>
+                            <li><strong>Usage métier :</strong> l'écart résiduel peut servir de <strong>borne supérieure</strong> pour estimer le prix maximum théorique (si vente directe B2C) — utile pour des politiques de vente opportunistes. Le facteur de recalibration ×N (post-COVID) produit une estimation C2C parallèle à la prédiction B2B native.</li>
                         </ul>
                     </div>
                 </div>
@@ -1914,7 +1905,7 @@
                 <div class="section-header">
                     <span class="section-number">11</span>
                     <h2>Analyse de Risque Portfolio</h2>
-                    <p class="section-desc">Agrégation financière et analyse de scénarios pour le comité de risque de Mobilize Financial Services</p>
+                    <p class="section-desc">Agrégation financière et analyse de scénarios pour le comité de risque de [Client]</p>
                 </div>
 
                 <!-- 3 bulles thématiques modales -->
@@ -1933,13 +1924,13 @@
                         <div class="collapse-card__body" id="risk-exposure-body" hidden>
                             <div class="card purpose-card">
                                 <h3>À quoi sert cette analyse ?</h3>
-                                <p>Prédire la VR d'un véhicule est utile, mais Mobilize n'a pas 1 contrat : il en a <strong><span id="dyn-n-portfolio-risk">--</span></strong>.</p>
+                                <p>Prédire la VR d'un véhicule est utile, mais [Client] n'a pas 1 contrat : il en a <strong><span id="dyn-n-portfolio-risk">--</span></strong>.</p>
                                 <p>La vraie question du CFO et du comité de risque n'est pas «&nbsp;combien vaudra cette Clio en 2027&nbsp;?&nbsp;», c'est <strong>«&nbsp;que fait-on du portefeuille dans son ensemble&nbsp;?&nbsp;»</strong>.</p>
                                 <div class="grid-3" style="margin-top:1rem">
                                     <div class="purpose-block">
                                         <div class="purpose-label">💰 Agrégation financière</div>
                                         <p>Somme des VR → <strong>exposition totale</strong> (≈ <span id="dyn-exposure-approx">--</span> M€).</p>
-                                        <p>Chiffre de pilotage pour le CFO : combien Mobilize espère récupérer en cash sur les reprises.</p>
+                                        <p>Chiffre de pilotage pour le CFO : combien [Client] espère récupérer en cash sur les reprises.</p>
                                     </div>
                                     <div class="purpose-block">
                                         <div class="purpose-label">⚠️ Stress tests</div>
@@ -1959,7 +1950,7 @@
                             <div class="grid-3">
                                 <div class="card stat-card">
                                     <div class="stat-value" id="risk-total-exposure">--</div>
-                                    <div class="stat-label">Exposition totale <span class="tip">i<span class="tip-text"><strong>Exposition totale</strong>Somme des valeurs résiduelles prédites sur les <span id="dyn-n-portfolio-tip2">--</span> véhicules. C'est le montant que Mobilize espère récupérer à la revente en fin de contrat.</span></span></div>
+                                    <div class="stat-label">Exposition totale <span class="tip">i<span class="tip-text"><strong>Exposition totale</strong>Somme des valeurs résiduelles prédites sur les <span id="dyn-n-portfolio-tip2">--</span> véhicules. C'est le montant que [Client] espère récupérer à la revente en fin de contrat.</span></span></div>
                                 </div>
                                 <div class="card stat-card">
                                     <div class="stat-value" id="risk-avg-decote">--</div>
@@ -2046,7 +2037,7 @@
                 <div class="card conclusion-card collapse-card conclusion-collapse">
                     <button class="collapse-card__trigger" type="button" aria-expanded="false" aria-controls="risk-conclusion-body">
                         <h4 class="collapse-card__title">
-                            <span>Usage opérationnel pour Mobilize Financial Services</span>
+                            <span>Usage opérationnel pour [Client]</span>
                             <svg class="collapse-card__chev" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
                         </h4>
                     </button>
@@ -2209,7 +2200,7 @@
                         <img src="{{ url_for('static', filename='img/mosef-logo.png') }}" alt="MoSEF" style="height:65px;border-radius:50%">
                     </div>
                     <p><strong>Challenge Nexialog 2026</strong> &mdash; Prédiction de Valeur Résiduelle Automobile</p>
-                    <p>Mobilize Financial Services &mdash; Marché allemand de l'occasion</p>
+                    <p>[Client] &mdash; Marché de l'occasion</p>
                     <p class="footer-tagline">#think smart, act different</p>
                 </div>
             </div>
@@ -2320,7 +2311,7 @@
                     <p class="rag-welcome__suggestions-label" data-i18n="rag_suggestions_label">Questions fréquentes</p>
                     <div class="rag-suggestions">
                         <button type="button" class="rag-suggestion-chip" data-prompt="catboost-choice">Pourquoi XGBoost et pas un autre modèle ?</button>
-                        <button type="button" class="rag-suggestion-chip" data-prompt="as24-gap">Comment interpréter l'écart -10.66 % vs AutoScout24 ?</button>
+                        <button type="button" class="rag-suggestion-chip" data-prompt="as24-gap">Comment interpréter l'écart observé vs AutoScout24 ?</button>
                         <button type="button" class="rag-suggestion-chip" data-prompt="kba-test">Le test de robustesse KBA est-il significatif ?</button>
                         <button type="button" class="rag-suggestion-chip" data-prompt="portfolio-vr">Quelle est la VR moyenne du portefeuille ?</button>
                     </div>

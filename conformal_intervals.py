@@ -1,7 +1,7 @@
 """
 Intervalles de prédiction par split conformal (inductive conformal regression).
 
-Pourquoi ça compte pour Mobilize : une prédiction de VR sans incertitude
+Pourquoi ça compte pour le client : une prédiction de VR sans incertitude
 ne permet pas de provisionner. Un intervalle calibré à 90% (IC90) qui
 contient la vraie VR 9 fois sur 10 est la brique manquante pour le
 risque de portefeuille — on peut alors calculer une VaR / CVaR sur les

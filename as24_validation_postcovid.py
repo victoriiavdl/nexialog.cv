@@ -2,7 +2,7 @@
 Validation AutoScout24 du modèle post-COVID (cutoff train >= 2022-01).
 
 Contexte : la variante `train_post_covid` (retire 2018 -> 2021) gagne
--4.47pt de MAPE vs baseline_full sur le split temporel (9.72% vs 14.19%)
+-4.47pt de MAPE vs baseline_full sur le split temporel (improved MAPE vs baseline)
 et +0.35 pt de R^2_log_ratio (0.84 vs 0.49). On valide ici que ce gain
 in-sample se traduit aussi sur la cible business : la distribution de prix
 B2C scrapée sur AutoScout24 pour 10 modèles portfolio.
@@ -11,7 +11,7 @@ Protocole :
   1. Train = used_market 2022-01-01 <= date_vente < 2024-01-01 (GPU CatBoost).
   2. Feature engineering (clustering modèle, comp_stats, derived_ratio) fit
      sur train only pour éviter le data leak.
-  3. Prédiction sur les 1951 véhicules du portfolio Mobilize.
+  3. Prédiction sur les véhicules du portefeuille.
   4. Comparaison des médianes prédites vs médianes scrapées AS24 (10 modèles).
   5. Facteur de recalibration B2B -> C2C = médiane(as24/pred).
   6. Comparaison avec le baseline_full AS24 (temporal_split_results.json).
@@ -181,7 +181,7 @@ def run_as24_postcovid():
     print()
 
     # ========= 4. Portfolio prediction =========
-    print("  [portfolio] prediction 1951 véhicules Mobilize...")
+    print("  [portfolio] prediction véhicules du portefeuille...")
     po = vp.load_portfolio()
     po_prep = vp.prepare_portfolio(po)
     po_prep = vp.apply_clustering(po_prep, clustering, new_col="model_family")

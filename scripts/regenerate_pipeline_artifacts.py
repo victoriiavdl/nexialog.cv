@@ -1,6 +1,6 @@
-"""Regenerate artifacts/houssem/ CSVs with the REAL victoria-2.0 pipeline
+"""Regenerate artifacts/pipeline/ CSVs with the REAL victoria-2.0 pipeline
 models (Ridge / Random Forest / XGBoost / CatBoost) on the temporal post-COVID
-split. Replaces the obsolete houssem artifacts (ElasticNet / CatBoost_main with
+split. Replaces the obsolete pipeline artifacts (ElasticNet / CatBoost_main with
 monotonic constraints + propensity reweighting) which are no longer used.
 """
 from __future__ import annotations

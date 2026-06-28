@@ -784,15 +784,15 @@ def _generate_all_charts(df, comparison, preds, stress=None):
     # l'échelle log_ratio + feature importance du modèle retenu + évaluation
     # par segment marque / carburant.
     try:
-        houssem_dir = "artifacts/houssem"
-        if os.path.isdir(houssem_dir):
-            houssem = {}
+        pipeline_dir = "artifacts/houssem"
+        if os.path.isdir(pipeline_dir):
+            pipeline_data = {}
 
             # -- Tableau métriques par modèle (4 candidats sur log_ratio scale)
-            mc_path = f"{houssem_dir}/model_comparison.csv"
+            mc_path = f"{pipeline_dir}/model_comparison.csv"
             if os.path.exists(mc_path):
                 mc = pd.read_csv(mc_path)
-                houssem["model_comparison"] = {
+                pipeline_data["model_comparison"] = {
                     "models":  mc["model"].tolist(),
                     "mae":     [round(float(v), 4) for v in mc["MAE"]],
                     "rmse":    [round(float(v), 4) for v in mc["RMSE"]],
@@ -802,27 +802,27 @@ def _generate_all_charts(df, comparison, preds, stress=None):
                 }
                 # Champion = plus petit MAE
                 idx_best = mc["MAE"].idxmin()
-                houssem["best_model"] = str(mc.loc[idx_best, "model"])
-                houssem["best_mae"]   = round(float(mc.loc[idx_best, "MAE"]), 4)
-                houssem["best_r2"]    = round(float(mc.loc[idx_best, "R2"]), 4)
-                houssem["best_mape"]  = round(float(mc.loc[idx_best, "MAPE"]), 2)
+                pipeline_data["best_model"] = str(mc.loc[idx_best, "model"])
+                pipeline_data["best_mae"]   = round(float(mc.loc[idx_best, "MAE"]), 4)
+                pipeline_data["best_r2"]    = round(float(mc.loc[idx_best, "R2"]), 4)
+                pipeline_data["best_mape"]  = round(float(mc.loc[idx_best, "MAPE"]), 2)
 
             # -- SHAP global importance (top 10 features)
-            shap_path = f"{houssem_dir}/shap_importance.csv"
+            shap_path = f"{pipeline_dir}/shap_importance.csv"
             if os.path.exists(shap_path):
                 shap_df = pd.read_csv(shap_path)
                 shap_df = shap_df[shap_df["mean_abs_shap"] > 0]
                 shap_df = shap_df.sort_values("mean_abs_shap", ascending=False).head(10)
-                houssem["shap_top"] = {
+                pipeline_data["shap_top"] = {
                     "features": shap_df["feature"].tolist(),
                     "values":   [round(float(v), 4) for v in shap_df["mean_abs_shap"]],
                 }
 
             # -- Évaluation par segment (marque)
-            seg_brand_path = f"{houssem_dir}/segment_evaluation_brand.csv"
+            seg_brand_path = f"{pipeline_dir}/segment_evaluation_brand.csv"
             if os.path.exists(seg_brand_path):
                 sb = pd.read_csv(seg_brand_path)
-                houssem["segment_brand"] = [
+                pipeline_data["segment_brand"] = [
                     {
                         "segment": str(r["segment"]),
                         "mae":     round(float(r["MAE"]), 4),
@@ -834,10 +834,10 @@ def _generate_all_charts(df, comparison, preds, stress=None):
                 ]
 
             # -- Évaluation par segment (carburant)
-            seg_fuel_path = f"{houssem_dir}/segment_evaluation_fuel.csv"
+            seg_fuel_path = f"{pipeline_dir}/segment_evaluation_fuel.csv"
             if os.path.exists(seg_fuel_path):
                 sf = pd.read_csv(seg_fuel_path)
-                houssem["segment_fuel"] = [
+                pipeline_data["segment_fuel"] = [
                     {
                         "segment": str(r["segment"]),
                         "mae":     round(float(r["MAE"]), 4),
@@ -849,28 +849,28 @@ def _generate_all_charts(df, comparison, preds, stress=None):
                 ]
 
             # -- Data audit (volumétrie used_market vs portfolio)
-            audit_path = f"{houssem_dir}/data_audit.json"
+            audit_path = f"{pipeline_dir}/data_audit.json"
             if os.path.exists(audit_path):
                 with open(audit_path) as f:
                     audit = json.load(f)
-                houssem["data_audit"] = {
+                pipeline_data["data_audit"] = {
                     "n_used_market": int(audit.get("used_market_rows", 0)),
                     "n_portfolio":   int(audit.get("portfolio_rows", 0)),
                 }
 
             # -- Liste des features (numeric + categorical) pour la section FE
-            feat_path = f"{houssem_dir}/feature_lists.json"
+            feat_path = f"{pipeline_dir}/feature_lists.json"
             if os.path.exists(feat_path):
                 with open(feat_path) as f:
                     feat = json.load(f)
-                houssem["features"] = {
+                pipeline_data["features"] = {
                     "numeric":     feat.get("numeric_features", []),
                     "categorical": feat.get("categorical_features", []),
                 }
 
-            charts["houssem_pipeline"] = houssem
+            charts["houssem_pipeline"] = pipeline_data
     except Exception as e:
-        print(f"  [warn] Houssem pipeline: {e}")
+        print(f"  [warn] structured pipeline: {e}")
 
     # ==== 15a. Risk Portfolio Dashboard ====
     # Source des prédictions : snapshot figé `prediction_portfolio.csv`
@@ -1208,16 +1208,16 @@ def _build_rag_context() -> str:
     n_models = meta.get("n_models_compared")
 
     lines = [
-        "Tu es l'assistant méthodologique du dashboard Nexialog VR (Challenge Nexialog 2026, Mobilize Financial Services).",
+        "Tu es l'assistant méthodologique du dashboard Nexialog VR (Challenge Nexialog 2026, [Client]).",
         "Tu réponds en FRANÇAIS, en 3-6 phrases max, ton analytique et honnête.",
         "Tu peux citer des chiffres SEULEMENT si présents dans le contexte ci-dessous — sinon dis que ce n'est pas dans le contexte.",
         "Tu formates les nombres clés en **gras** (markdown). Code inline entre backticks. Pas de section headers.",
         "",
         "CONTEXTE DU PROJET :",
-        "- Objectif : prédire la valeur résiduelle (prix de revente en euros, fin de contrat de leasing) de 1951 véhicules Renault/Dacia/Nissan vendus en Allemagne.",
+        "- Objectif : prédire la valeur résiduelle (prix de revente en euros, fin de contrat de leasing) de N véhicules du portefeuille vendus sur le marché cible.",
         "- Features : marque, carburant, gamme, âge mois, kilométrage total, prix catalogue d'origine + macro HICP (inflation core/headline/energy YoY + log_cum_inflation_core).",
         "- Cible modélisée : log_ratio = log(prix_vente / prix_catalogue). Back-transform V_t = V_0 · exp(log_ratio_hat) pour les métriques en EUR.",
-        "- Dataset : 644 000+ transactions marché de l'occasion allemand (2018-2025).",
+        "- Dataset : données de transactions du marché de l'occasion.",
         "",
         "MODÈLE RETENU :",
         f"- {best_model} (critère de sélection : stabilité intra-CV = std MAPE minimale sur TimeSeriesSplit(3)).",
@@ -1232,13 +1232,13 @@ def _build_rag_context() -> str:
         "- Stress test temporel 49/51 : split chronologique au quantile 49%, vérifie robustesse sous rupture temporelle.",
         "- Baseline naïve stratifiée (brand × age, ratio médian) comme référence métier honnête.",
         "",
-        "PORTEFEUILLE MOBILIZE :",
-        f"- {n_portfolio if n_portfolio else '1951'} véhicules prédits, {n_models if n_models else 4} modèles comparés.",
-        "- Décote moyenne ~49-50%. Stress tests calibrés BCE/EBA (-5/-10/-15%).",
+        "PORTEFEUILLE [CLIENT] :",
+        f"- {n_portfolio if n_portfolio else 'N'} véhicules prédits, {n_models if n_models else 4} modèles comparés.",
+        "- Décote moyenne observée sur le portefeuille. Stress tests calibrés BCE/EBA (-5/-10/-15%).",
         "",
         "VALIDATION EXTERNE :",
-        "- AutoScout24 scraping : écart B2B vs B2C ~-22% (attendu, borne supérieure en vente directe).",
-        "- KBA (tension marché, 190 fichiers scrapés) : β non significatif au-dessus du signal HICP — modèle bien spécifié.",
+        "- AutoScout24 scraping : écart B2B vs B2C observé (attendu, borne supérieure en vente directe).",
+        "- KBA (tension marché, fichiers scrapés depuis la plateforme de référence) : β non significatif au-dessus du signal HICP — modèle bien spécifié.",
         "",
         "Si la question sort du périmètre (ex: météo, code générique), redirige poliment vers le sujet du dashboard.",
     ]
