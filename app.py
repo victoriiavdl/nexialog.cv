@@ -778,13 +778,13 @@ def _generate_all_charts(df, comparison, preds, stress=None):
         print(f"  [warn] AS24 post-COVID data: {e}")
 
     # ==== 14i. Pipeline structuré — lecture log_ratio du vr_pipeline ====
-    # Charge les artefacts CSV/JSON régénérés par `scripts/regenerate_houssem_artifacts.py`
+    # Charge les artefacts CSV/JSON régénérés par `scripts/regenerate_pipeline_artifacts.py`
     # à partir du VRAI vr_pipeline (Ridge, RandomForest, XGBoost, CatBoost),
     # même split temporel post-COVID que la section 06 mais métriques sur
     # l'échelle log_ratio + feature importance du modèle retenu + évaluation
     # par segment marque / carburant.
     try:
-        pipeline_dir = "artifacts/houssem"
+        pipeline_dir = "artifacts/pipeline"
         if os.path.isdir(pipeline_dir):
             pipeline_data = {}
 
@@ -868,7 +868,7 @@ def _generate_all_charts(df, comparison, preds, stress=None):
                     "categorical": feat.get("categorical_features", []),
                 }
 
-            charts["houssem_pipeline"] = pipeline_data
+            charts["pipeline_data"] = pipeline_data
     except Exception as e:
         print(f"  [warn] structured pipeline: {e}")
 

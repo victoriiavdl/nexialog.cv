@@ -23,7 +23,7 @@ from vr_pipeline import (  # noqa: E402
     load_used_market,
 )
 
-OUT_DIR = Path("artifacts/houssem")
+OUT_DIR = Path("artifacts/pipeline")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 
@@ -143,7 +143,7 @@ def main() -> None:
     }
     (OUT_DIR / "feature_lists.json").write_text(json.dumps(feature_lists, indent=2), encoding="utf-8")
 
-    print("\n[OK] Regeneration complete — artifacts/houssem/ now reflects the real pipeline.")
+    print("\n[OK] Regeneration complete — artifacts/pipeline/ now reflects the real pipeline.")
 
 
 if __name__ == "__main__":

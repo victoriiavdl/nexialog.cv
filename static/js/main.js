@@ -490,7 +490,7 @@ const TOUR_STEPS = [
         text: '4 candidats (Ridge, RandomForest, XGBoost, CatBoost) + baseline naïve k·V₀ évalués en <strong>walk-forward post-COVID</strong> : 3 cutoffs successifs (2024-01, 2024-07, 2025-01) × horizon 6 mois. Tuning Optuna TPE <em>tune-once-apply-everywhere</em>. <strong>XGBoost/CatBoost dominent</strong>, ranking stable entre folds.',
     },
     {
-        targetId: 'houssem',
+        targetId: 'pipeline',
         openCollapseId: null,
         title: '07 · Pipeline Structuré (validation indépendante)',
         text: 'Seconde méthodologie orthogonale : split aléatoire stratifié, target <code>log(price/msrp)</code>, monotonic constraints (âge↓, km↓), <strong>SHAP global</strong>. Champion identique : CatBoost (R² 0.74 sur log_ratio). Même verdict sur 2 protocoles différents → <strong>robustesse confirmée</strong>, pas d\'artefact de fenêtre.',
@@ -694,7 +694,7 @@ const RAG_CANNED = {
         sources: [
             { type: 'data', label: 'scrape_validation_results.json' },
             { type: 'code', label: 'scrape_validation.py' },
-            { type: 'data', label: '10 modèles confrontés (Renault×6, Dacia×3, Nissan×1)' },
+            { type: 'data', label: '10 modèles confrontés' },
         ],
         confidence: 'high',
         confidence_basis: "Confirmé sur 10 modèles distincts, écart cohérent avec la littérature B2B vs B2C.",
@@ -714,7 +714,7 @@ const RAG_CANNED = {
     'portfolio-vr': {
         question: "Quelle est la VR moyenne du portefeuille ?",
         answer: "<strong>Décote moyenne ~49.5 %</strong> sur les véhicules du portefeuille — soit une <strong>exposition totale ~20 M€</strong> de valeur résiduelle prédite à la fin des contrats.",
-        methodology: "Prédictions générées par l'ensemble CatBoost + XGBoost appliqué à l'état prévisible de chaque véhicule à la fin de son contrat (age_months recalculé, mileage_at_end = initial_mileage + contract_mileage, transformations log cohérentes avec le training). La distribution centrée sur ~50 % de décote est typique pour des contrats 3-5 ans sur le segment Renault/Dacia/Nissan. Stress tests calibrés BCE/EBA appliqués (-5 / -10 / -15 %) pour donner une fourchette de pertes sous scénarios adverses. Le top 10 des décotes les plus fortes identifie les contrats actionnables (revente anticipée, renégociation).",
+        methodology: "Prédictions générées par l'ensemble CatBoost + XGBoost appliqué à l'état prévisible de chaque véhicule à la fin de son contrat (age_months recalculé, mileage_at_end = initial_mileage + contract_mileage, transformations log cohérentes avec le training). La distribution centrée sur ~50 % de décote est typique pour des contrats 3-5 ans sur les marques du portefeuille. Stress tests calibrés BCE/EBA appliqués (-5 / -10 / -15 %) pour donner une fourchette de pertes sous scénarios adverses. Le top 10 des décotes les plus fortes identifie les contrats actionnables (revente anticipée, renégociation).",
         sources: [
             { type: 'data', label: 'prediction_portfolio.csv' },
             { type: 'code', label: 'vr_pipeline.py' },
@@ -1074,7 +1074,7 @@ function renderAllCharts() {
     safeRender('renderAs24PostCovid',          renderAs24PostCovid,          c.as24_postcovid);
 
     // Section 08 — Pipeline Structuré (Structured Pipeline)
-    safeRender('renderHoussemPipeline',        renderHoussemPipeline,        c.houssem_pipeline);
+    safeRender('renderStructuredPipeline',      renderStructuredPipeline,     c.pipeline_data);
 
     // Fill section 07 placeholders (« -- » bandeau et bullets « Lecture finale »)
     safeRender('fillSection07Placeholders',    fillSection07Placeholders,    c);
@@ -1156,9 +1156,8 @@ function renderModelBarChart(id, data) {
     for (const [brand, models] of Object.entries(mbb)) {
         for (const m of models) modelBrand[m] = brand;
     }
-    const colorMap = { RENAULT: '#3b82f6', DACIA: '#4BC4BD', NISSAN: '#f59e0b' };
+    const colorMap = { BRAND_A: '#3b82f6', BRAND_B: '#4BC4BD', BRAND_C: '#f59e0b' };
     const brands = data.labels.map(m => modelBrand[m] || '');
-    // Main trace with original order
     const trace = {
         x: data.values,
         y: data.labels,
@@ -1169,8 +1168,7 @@ function renderModelBarChart(id, data) {
         hovertemplate: '%{y} (%{customdata})<br>%{x:,} transactions<extra></extra>',
         showlegend: false,
     };
-    // Invisible traces for legend only
-    const legendTraces = ['RENAULT', 'DACIA', 'NISSAN'].map(b => ({
+    const legendTraces = ['BRAND_A', 'BRAND_B', 'BRAND_C'].map(b => ({
         x: [null], y: [null], type: 'bar', orientation: 'h',
         name: b, marker: { color: colorMap[b] },
         showlegend: true,
@@ -1925,7 +1923,7 @@ const NAV_PREVIEW = {
     results:      { title: 'Évaluation des Modèles', title_en: 'Model Evaluation',
                     text: "4 modèles testés (Ridge, RandomForest, XGBoost, CatBoost) + baseline naïve k·V₀. Walk-forward 3 cutoffs, tuning Optuna, conformal 80/90/95, prédit vs observé, résidus.",
                     text_en: "4 models tested (Ridge, RandomForest, XGBoost, CatBoost) + k·V₀ naive baseline. Walk-forward 3 cutoffs, Optuna tuning, conformal 80/90/95, predicted vs observed, residuals." },
-    houssem:      { title: 'Pipeline Structuré',     title_en: 'Structured Pipeline',
+    pipeline:     { title: 'Pipeline Structuré',     title_en: 'Structured Pipeline',
                     text: "Validation indépendante : split aléatoire stratifié, target log_ratio, propensity reweighting, monotonic constraints, SHAP global. Verdict comparé à la section 06.",
                     text_en: "Independent validation: stratified random split, log_ratio target, propensity reweighting, monotonic constraints, global SHAP. Verdict cross-checked vs section 06." },
     portfolio:    { title: 'Prédictions Portfolio',  title_en: 'Portfolio Predictions',
@@ -2047,11 +2045,11 @@ function setupScrollAnimations() {
 // Presets rapides : sélectionne la 1re option correspondante si disponible,
 // sinon retombe sur la 1re option du select (évite les valeurs invalides).
 const SIM_PRESETS = {
-    clio:   { brand: /renault/i, fuel: /petrol|essence/i, range: /PC|passenger/i,
+    preset_a: { brand: /./i, fuel: /petrol|essence/i, range: /PC|passenger/i,
               prix: 22000, prod: 2022, end: 2027, initKm: 0, contractKm: 60000 },
-    duster: { brand: /dacia/i,   fuel: /diesel/i,          range: /PC|passenger/i,
+    preset_b: { brand: /./i, fuel: /diesel/i,          range: /PC|passenger/i,
               prix: 24000, prod: 2021, end: 2026, initKm: 0, contractKm: 90000 },
-    ev:     { brand: /renault/i, fuel: /electric/i,        range: /PC|passenger/i,
+    preset_c: { brand: /./i, fuel: /electric/i,        range: /PC|passenger/i,
               prix: 35000, prod: 2023, end: 2028, initKm: 0, contractKm: 50000 },
 };
 function _setSelectMatch(id, regex) {
@@ -3187,7 +3185,7 @@ function renderRiskPortfolio(data) {
 
     // Exposition par marque
     if (data.brand_risk && document.getElementById('chart-risk-brand')) {
-        const colorMap = { RENAULT: '#3b82f6', DACIA: '#4BC4BD', NISSAN: '#f59e0b' };
+        const colorMap = { BRAND_A: '#3b82f6', BRAND_B: '#4BC4BD', BRAND_C: '#f59e0b' };
         const trace = {
             x: data.brand_risk.map(b => b.brand),
             y: data.brand_risk.map(b => b.total_vr / 1e6),
@@ -3491,7 +3489,7 @@ const TRANSLATIONS = {
         eda_overview: "Vue d'ensemble des données",
         tab_numeric: 'Variables Numériques', tab_categorical: 'Variables Catégorielles', tab_correlations: 'Corrélations',
         hicp_title: 'Variables Macroéconomiques (HICP)',
-        hicp_desc: "Intégration de l'inflation allemande pour séparer dépréciation réelle et effet nominal",
+        hicp_desc: "Intégration de l'inflation (indice macro) pour séparer dépréciation réelle et effet nominal",
         feat_title: 'Feature Engineering',
         feat_desc: 'Construction des variables et clustering des modèles en familles de dépréciation',
         dep_title: 'Valeurs Résiduelles & Dépréciation',
@@ -3581,7 +3579,7 @@ const TRANSLATIONS = {
         eda_overview: 'Data overview',
         tab_numeric: 'Numeric Variables', tab_categorical: 'Categorical Variables', tab_correlations: 'Correlations',
         hicp_title: 'Macroeconomic Variables (HICP)',
-        hicp_desc: 'Integrating German inflation to separate real depreciation from nominal effects',
+        hicp_desc: 'Integrating inflation (macro index) to separate real depreciation from nominal effects',
         feat_title: 'Feature Engineering',
         feat_desc: 'Variable construction and model clustering into depreciation families',
         dep_title: 'Residual Values & Depreciation',
@@ -3708,23 +3706,23 @@ function applyTranslations() {
 // SECTION 08 — PIPELINE STRUCTURÉ (STRUCTURED PIPELINE)
 // Validation indépendante : split aléatoire stratifié + target log_ratio.
 // 5 sous-renders : metrics chart + table, SHAP barres, segments brand/fuel,
-// + remplissage des spans dyn-houssem-*.
+// + remplissage des spans dyn-pipeline-*.
 // ============================================================
-function renderHoussemPipeline(data) {
+function renderStructuredPipeline(data) {
     if (!data) return;
 
-    // -- Volumétrie + champion (spans dyn-houssem-*)
+    // -- Volumétrie + champion (spans dyn-pipeline-*)
     if (data.data_audit) {
-        setText('dyn-houssem-n-um', data.data_audit.n_used_market.toLocaleString('fr-FR'));
-        setText('dyn-houssem-n-pf', data.data_audit.n_portfolio.toLocaleString('fr-FR'));
+        setText('dyn-pipeline-n-um', data.data_audit.n_used_market.toLocaleString('fr-FR'));
+        setText('dyn-pipeline-n-pf', data.data_audit.n_portfolio.toLocaleString('fr-FR'));
     }
     if (data.best_model) {
-        setText('dyn-houssem-best-model', data.best_model);
+        setText('dyn-pipeline-best-model', data.best_model);
     }
 
     // -- Chart metrics : 4 modèles × {MAE, R², MAPE} dans 3 chart-cards séparées
     const mc = data.model_comparison;
-    if (mc && document.getElementById('chart-houssem-mae')) {
+    if (mc && document.getElementById('chart-pipeline-mae')) {
         const labels = mc.models;
         const colorByName = {
             ElasticNet:        '#94a3b8',
@@ -3747,7 +3745,7 @@ function renderHoussemPipeline(data) {
         const plotConfig = { displayModeBar: false, responsive: true };
 
         // MAE
-        Plotly.newPlot('chart-houssem-mae', [{
+        Plotly.newPlot('chart-pipeline-mae', [{
             x: labels, y: mc.mae, type: 'bar',
             marker: { color: colors, opacity: 0.9 },
             text: mc.mae.map(v => v.toFixed(3)),
@@ -3757,7 +3755,7 @@ function renderHoussemPipeline(data) {
 
         // R²
         const r2Min = Math.min(0, ...mc.r2);
-        Plotly.newPlot('chart-houssem-r2', [{
+        Plotly.newPlot('chart-pipeline-r2', [{
             x: labels, y: mc.r2, type: 'bar',
             marker: { color: colors, opacity: 0.9 },
             text: mc.r2.map(v => v.toFixed(3)),
@@ -3767,7 +3765,7 @@ function renderHoussemPipeline(data) {
             plotConfig);
 
         // MAPE
-        Plotly.newPlot('chart-houssem-mape', [{
+        Plotly.newPlot('chart-pipeline-mape', [{
             x: labels, y: mc.mape, type: 'bar',
             marker: { color: colors, opacity: 0.9 },
             text: mc.mape.map(v => v.toFixed(1) + '%'),
@@ -3776,7 +3774,7 @@ function renderHoussemPipeline(data) {
         }], baseLayout, plotConfig);
 
         // Table métriques en dessous
-        const tableEl = document.getElementById('houssem-metrics-table');
+        const tableEl = document.getElementById('pipeline-metrics-table');
         if (tableEl) {
             const rows = labels.map((m, i) => {
                 const isBest = m === data.best_model;
@@ -3809,9 +3807,9 @@ function renderHoussemPipeline(data) {
 
     // -- SHAP top features (barres horizontales)
     const shap = data.shap_top;
-    const elShap = document.getElementById('chart-houssem-shap');
+    const elShap = document.getElementById('chart-pipeline-shap');
     if (shap && elShap) {
-        Plotly.newPlot('chart-houssem-shap', [{
+        Plotly.newPlot('chart-pipeline-shap', [{
             x: shap.values.slice().reverse(),
             y: shap.features.slice().reverse(),
             type: 'bar', orientation: 'h',
@@ -3833,7 +3831,7 @@ function renderHoussemPipeline(data) {
 
     // -- Segment evaluation (brand)
     const sb = data.segment_brand;
-    const elSb = document.getElementById('chart-houssem-segment-brand');
+    const elSb = document.getElementById('chart-pipeline-segment-brand');
     if (sb && elSb) {
         const labels = sb.map(r => r.segment);
         const mapes = sb.map(r => r.mape);
@@ -3854,7 +3852,7 @@ function renderHoussemPipeline(data) {
             margin: { t: 20, b: 50, l: 60, r: 15 },
         }, { displayModeBar: false, responsive: true });
 
-        const tEl = document.getElementById('houssem-segment-brand-table');
+        const tEl = document.getElementById('pipeline-segment-brand-table');
         if (tEl) {
             tEl.innerHTML = `
                 <table style="width:100%;border-collapse:collapse;font-size:0.85rem">
@@ -3875,7 +3873,7 @@ function renderHoussemPipeline(data) {
 
     // -- Segment evaluation (fuel)
     const sf = data.segment_fuel;
-    const elSf = document.getElementById('chart-houssem-segment-fuel');
+    const elSf = document.getElementById('chart-pipeline-segment-fuel');
     if (sf && elSf) {
         const labels = sf.map(r => r.segment);
         const mapes = sf.map(r => r.mape);
@@ -3900,7 +3898,7 @@ function renderHoussemPipeline(data) {
             margin: { t: 20, b: 50, l: 60, r: 15 },
         }, { displayModeBar: false, responsive: true });
 
-        const tEl = document.getElementById('houssem-segment-fuel-table');
+        const tEl = document.getElementById('pipeline-segment-fuel-table');
         if (tEl) {
             tEl.innerHTML = `
                 <table style="width:100%;border-collapse:collapse;font-size:0.85rem">

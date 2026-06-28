@@ -1,8 +1,8 @@
-# Challenge Nexialog × Mobilize — Valorisation de portefeuille automobile
+# Challenge Nexialog — Valorisation de portefeuille automobile
 
-Dashboard Flask + Plotly pour la prédiction de valeur résiduelle automobile (portefeuille Mobilize Financial Services), avec assistant IA (Ollama / llama3.2) entièrement containerisé.
+Dashboard Flask + Plotly pour la prédiction de valeur résiduelle automobile (portefeuille client), avec assistant IA (Ollama / llama3.2) entièrement containerisé.
 
-> Projet réalisé dans le cadre du Master 2 [MoSEF](https://mosefparis1.com/) (Université Paris 1 Panthéon-Sorbonne), en partenariat avec [Nexialog Consulting](https://www.nexialog.com/) et [Mobilize Financial Services](https://www.mobilize-fs.com/).
+> Projet réalisé dans le cadre du Master 2 [MoSEF](https://mosefparis1.com/) (Université Paris 1 Panthéon-Sorbonne), en partenariat avec [Nexialog Consulting](https://www.nexialog.com/) et un partenaire industriel.
 
 ---
 
@@ -71,7 +71,7 @@ ollama serve
 
 ## Confidentialité
 
-Les données Mobilize Financial Services sont confidentielles et **ne sont pas incluses dans ce dépôt**. Seul le code applicatif (dashboard, pipeline de prédiction, templates) est partagé. Les fichiers de données (CSV, notebooks, résultats JSON, slides) ont été retirés du suivi git.
+Les données du partenaire industriel sont confidentielles et **ne sont pas incluses dans ce dépôt**. Seul le code applicatif (dashboard, pipeline de prédiction, templates) est partagé. Les fichiers de données (CSV, notebooks, résultats JSON, slides) ont été retirés du suivi git.
 
 > Les données restent dans l'historique git. Pour un nettoyage complet, il faudrait recréer le repo sans historique ou utiliser `git filter-repo`.
 
@@ -79,6 +79,6 @@ Les données Mobilize Financial Services sont confidentielles et **ne sont pas i
 
 ## Équipe
 
-Projet réalisé par **Victoria Vidal**, Houssem Majed, Ayoub Benallal, Abdelmounaim Ait Said — promotion MoSEF 2025-2026.
+Projet réalisé par **Victoria Vidal** et son équipe — promotion MoSEF 2025-2026.
 
 ---

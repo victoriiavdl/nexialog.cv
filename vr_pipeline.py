@@ -488,7 +488,7 @@ def compute_recency_weights(
 #
 # Le problème : used_market (source) et portfolio (target) ne sont pas tirés
 # de la même distribution. Used_market couvre un spectre large de véhicules
-# tous âges/km, tandis que portfolio est concentré sur Renault/Dacia/Nissan
+# tous âges/km, tandis que portfolio est concentré sur les marques du portefeuille
 # récents en conditions de leasing spécifiques.
 #
 # Solution classique (Bickel & Scheffer, Sugiyama et al.) :

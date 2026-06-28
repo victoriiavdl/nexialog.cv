@@ -41,18 +41,18 @@ HEADERS = {
 }
 
 MODELS_TO_SCRAPE = [
-    ("RENAULT", "CAPTUR", "renault", "captur"),
-    ("RENAULT", "CLIO", "renault", "clio"),
-    ("RENAULT", "MEGANE", "renault", "megane"),
-    ("RENAULT", "SCENIC", "renault", "scenic"),
-    ("RENAULT", "TWINGO", "renault", "twingo"),
-    ("RENAULT", "KANGOO", "renault", "kangoo"),
-    ("DACIA", "DUSTER", "dacia", "duster"),
-    ("DACIA", "SANDERO", "dacia", "sandero"),
-    ("DACIA", "SPRING", "dacia", "spring"),
-    ("NISSAN", "QASHQAI", "nissan", "qashqai"),
-    ("NISSAN", "JUKE", "nissan", "juke"),
-    ("NISSAN", "MICRA", "nissan", "micra"),
+    ("BRAND_A", "MODEL_A1", "brand_a", "model_a1"),
+    ("BRAND_A", "MODEL_A2", "brand_a", "model_a2"),
+    ("BRAND_A", "MODEL_A3", "brand_a", "model_a3"),
+    ("BRAND_A", "MODEL_A4", "brand_a", "model_a4"),
+    ("BRAND_A", "MODEL_A5", "brand_a", "model_a5"),
+    ("BRAND_A", "MODEL_A6", "brand_a", "model_a6"),
+    ("BRAND_B", "MODEL_B1", "brand_b", "model_b1"),
+    ("BRAND_B", "MODEL_B2", "brand_b", "model_b2"),
+    ("BRAND_B", "MODEL_B3", "brand_b", "model_b3"),
+    ("BRAND_C", "MODEL_C1", "brand_c", "model_c1"),
+    ("BRAND_C", "MODEL_C2", "brand_c", "model_c2"),
+    ("BRAND_C", "MODEL_C3", "brand_c", "model_c3"),
 ]
 
 
