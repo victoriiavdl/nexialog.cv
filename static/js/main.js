@@ -463,7 +463,7 @@ const TOUR_STEPS = [
         targetId: 'eda',
         openCollapseId: null,
         title: '02 · Analyse exploratoire',
-        text: 'Dataset used-car allemand : <strong>transactions</strong> réelles du marché de l'occasion. Distributions, catégorielles, matrice de corrélation. La <strong>décote est convexe</strong> avec l\'âge — conforme à la littérature automobile et aux slides Nexialog.',
+        text: 'Dataset used-car : <strong>transactions</strong> réelles du marché de l'occasion. Distributions, catégorielles, matrice de corrélation. La <strong>décote est convexe</strong> avec l\'âge — conforme à la littérature automobile et aux slides Nexialog.',
     },
     {
         targetId: 'hicp',
