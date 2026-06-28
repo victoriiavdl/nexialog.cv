@@ -1,0 +1,41 @@
+# VCS / IDE
+.git
+.gitignore
+.vscode
+.idea
+.claude
+
+# Python caches
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv
+*.egg-info
+
+# Runtime dashboard cache (rempli dans le container)
+.web_cache
+
+# Logs / debug dumps
+*.log
+flask_log.txt
+flask_err.txt
+api_data_check.json
+cv_std_run.log
+
+# Notebooks (pas requis en prod, poids inutile)
+*.ipynb
+.ipynb_checkpoints
+notebooks
+
+# CatBoost training artefacts (re-générés au besoin)
+catboost_info
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker meta
+Dockerfile
+docker-compose.yml
+.dockerignore

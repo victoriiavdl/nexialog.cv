@@ -1,0 +1,55 @@
+# ============================================================
+# Nexialog VR Dashboard — stack docker-compose
+#
+#   docker compose up --build
+#       Lance Flask + Ollama (CPU). Le modèle llama3.2 est
+#       téléchargé automatiquement au premier démarrage (~2 Go).
+#       Rien à installer en dehors de Docker Desktop.
+#
+#   Premier lancement : ~5-10 min (build + download modèle)
+#   Lancements suivants : ~1 min (tout est en cache)
+# ============================================================
+
+services:
+  ollama:
+    image: ollama/ollama:latest
+    container_name: nexialog-ollama
+    entrypoint: ["/bin/sh", "-c", "ollama serve & until ollama list 2>/dev/null; do sleep 2; done; ollama pull llama3.2:latest; wait"]
+    volumes:
+      - ollama_models:/root/.ollama
+    environment:
+      OLLAMA_KEEP_ALIVE: "15m"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "ollama list > /dev/null 2>&1"]
+      interval: 10s
+      timeout: 5s
+      retries: 20
+      start_period: 60s
+
+  web:
+    build: .
+    image: nexialog-vr:latest
+    container_name: nexialog-web
+    ports:
+      - "5000:5000"
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      OLLAMA_MODEL: ${OLLAMA_MODEL:-llama3.2:latest}
+      NGROK_URL: ${NGROK_URL:-}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    volumes:
+      - web_cache:/app/.web_cache
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:5000/api/data"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+
+volumes:
+  web_cache:
+  ollama_models:

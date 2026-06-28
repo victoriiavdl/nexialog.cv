@@ -1,0 +1,31 @@
+[project]
+name = "nexioalogprojet"
+version = "1"
+description = ""
+authors = [
+    {name = "tasnim"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pandas (>=3.0.1,<4.0.0)",
+    "openpyxl (>=3.1.5,<4.0.0)",
+    "pyxlsb (>=1.0.10,<2.0.0)",
+    "matplotlib (>=3.10.8,<4.0.0)",
+    "numpy (>=2.4.4,<3.0.0)",
+    "scipy (>=1.17.1,<2.0.0)",
+    "statsmodels (>=0.14.6,<0.15.0)",
+    "seaborn (>=0.13.2,<0.14.0)",
+    "scikit-learn (>=1.8.0,<2.0.0)",
+    "shap (>=0.51.0,<0.52.0)",
+    "pingouin (>=0.6.1,<0.7.0)",
+    "flask (>=3.1.3,<4.0.0)",
+    "xgboost (>=3.2.0,<4.0.0)",
+    "catboost (>=1.2.10,<2.0.0)",
+    "yfinance (>=1.2.2,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

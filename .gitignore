@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.egg-info/
+
+# Runtime cache (dashboard)
+.web_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+.claude/
+
+# Logs / ephemeral debug dumps
+*.log
+flask_log.txt
+flask_err.txt
+api_data_check.json
+
+# Data files
+*.csv
+data/
+
+# Results & artifacts
+*.json
+!package.json
+artifacts/
+
+# Notebooks
+*.ipynb
+
+# Slides & presentations
+slides/
+*.pptx
+
+# CatBoost cache
+catboost_info/
